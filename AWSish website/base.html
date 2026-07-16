@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeCloud - Your Free Cloud Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .sidebar-link.active {
+            background-color: rgba(255,255,255,0.15);
+            border-left: 3px solid #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 min-h-screen fixed left-0 top-0">
+            <div class="p-4 border-b border-gray-700">
+                <h1 class="text-2xl font-bold text-orange-500">
+                    <i class="fas fa-cloud mr-2"></i>FreeCloud
+                </h1>
+                <p class="text-gray-400 text-sm mt-1">100% Free Cloud Platform</p>
+            </div>
+            <nav class="mt-4">
+                <a href="/" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-tachometer-alt w-6"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/compute" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'compute' %}active{% endif %}">
+                    <i class="fas fa-server w-6"></i>
+                    <span>Compute</span>
+                </a>
+                <a href="/storage" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'storage' %}active{% endif %}">
+                    <i class="fas fa-database w-6"></i>
+                    <span>Storage</span>
+                </a>
+                <a href="/database" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'database' %}active{% endif %}">
+                    <i class="fas fa-hdd w-6"></i>
+                    <span>Databases</span>
+                </a>
+                <a href="/ai" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'ai' %}active{% endif %}">
+                    <i class="fas fa-brain w-6"></i>
+                    <span>AI Services</span>
+                </a>
+                <a href="/publisher" class="sidebar-link flex items-center px-4 py-3 text-gray-300 {% if request.endpoint == 'publisher' %}active{% endif %}">
+                    <i class="fas fa-rocket w-6"></i>
+                    <span>Publisher</span>
+                </a>
+            </nav>
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium">Free User</p>
+                        <p class="text-xs text-gray-400">Free Tier</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <script>
+        // Simple notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
